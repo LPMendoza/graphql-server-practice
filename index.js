@@ -3,21 +3,21 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 const persons = [
-  { 
-    name: 'John',
-    age: 20, 
-    phone: '123-456-7890', 
-    street: '123 Main St', 
-    city: 'New York',
-    id: '1' 
+  {
+    "name": "Jose",
+    "age": 20,
+    "phone": "123-456-7890",
+    "street": "123 Main St",
+    "city": "New York",
+    "id": "1"
   },
-  { 
-    name: 'Peter',
-    age: 20, 
-    street: '123 Main St', 
-    city: 'New York',
-    id: '2' 
-  },
+  {
+    "name": "Peter",
+    "age": 20,
+    "street": "123 Main St",
+    "city": "New York",
+    "id": "2"
+  }
 ]
 
 const typeDefs = gql`
@@ -62,11 +62,11 @@ const resolvers = {
     personCount: () => persons.length,
     allPersons: async (root, args) => {
       const { data: personsFromAPI } = await axios('http://localhost:3001/persons');
-      if (!args.phone) return personsFromAPI; 
+      if (!args.phone) return persons; 
 
       const byPhone = person => args.phone === 'YES' ? person.phone : !person.phone;
-
-      return personsFromAPI.filter(byPhone);
+      
+      return persons.filter(byPhone);
     },
     findPerson: (root, args) => {
       const { name } = args;
@@ -78,6 +78,7 @@ const resolvers = {
       const person = { ...args, id: uuidv4() }
       if (!persons.find(p => p.name === person.name)) {
         persons.push(person);
+        console.log(persons)
       } else {
         // Error handling with graphql
         throw new UserInputError('Name must be unique', {

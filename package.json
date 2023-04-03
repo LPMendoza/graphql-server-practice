@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/client": "^3.7.11",
     "apollo-server": "^3.12.0",
     "axios": "^1.3.4",
     "graphql": "^16.6.0",
